@@ -1,8 +1,5 @@
 # Release Notes
 
-## [Unreleased](https://github.com/korioinc/laravel-expo-integrity/compare/v0.1.0...1.x)
+## Unreleased
 
-
-## [v0.1.0](https://github.com/korioinc/laravel-expo-integrity/compare/...v0.1.0) - 202x-xx-xx
-
-Initial pre-release.
+Initial implementation of Expo request signatures and replay protection.

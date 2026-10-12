@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Korioinc\ExpoIntegrity;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Korioinc\ExpoIntegrity\Http\Middleware\ExpoIntegrityMiddleware;
 
 class ExpoIntegrityServiceProvider extends ServiceProvider
 {
@@ -14,15 +16,15 @@ class ExpoIntegrityServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/laravel-expo-integrity.php', 'laravel-expo-integrity');
-
-        $this->app->singleton(ExpoIntegrity::class);
     }
 
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(Router $router): void
     {
+        $router->aliasMiddleware('expo-integrity', ExpoIntegrityMiddleware::class);
+
         if (! $this->app->runningInConsole()) {
             return;
         }

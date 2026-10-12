@@ -1,7 +1,7 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
     "name": "korioinc/laravel-expo-integrity",
-    "description": "Expo Integrity",
+    "description": "Verify Expo request HMAC signatures and prevent replay in Laravel with file or Redis cache",
     "keywords": [
         "laravel",
         "korioinc",
@@ -18,9 +18,15 @@
     ],
     "require": {
         "php": "^8.3",
-        "illuminate/support": "^12.0||^13.0"
+        "illuminate/cache": "^12.0||^13.0",
+        "illuminate/http": "^12.0||^13.0",
+        "illuminate/redis": "^12.0||^13.0",
+        "illuminate/routing": "^12.0||^13.0",
+        "illuminate/support": "^12.0||^13.0",
+        "illuminate/validation": "^12.0||^13.0"
     },
     "require-dev": {
+        "brianium/paratest": "^7.11 <7.26.1",
         "larastan/larastan": "^3.9",
         "laravel/pint": "^1.29",
         "laravel/pao": "^1.0",
@@ -88,10 +94,7 @@
         "laravel": {
             "providers": [
                 "Korioinc\\ExpoIntegrity\\ExpoIntegrityServiceProvider"
-            ],
-            "aliases": {
-                "ExpoIntegrity": "Korioinc\\ExpoIntegrity\\Facades\\ExpoIntegrity"
-            }
+            ]
         }
     },
     "config": {
