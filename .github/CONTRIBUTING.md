@@ -49,15 +49,15 @@ Release automation follows the changelog update flow used by
 workflow. It does not create or push tags automatically.
 
 1. Merge the intended package changes into the repository's default branch.
-2. Create and push a stable SemVer tag such as `v1.0.0` using the team's release process.
+2. Create and push a stable SemVer tag such as `1.0.1` using the team's release process.
 3. Open **Actions → Release → Run workflow** on the default branch.
 4. Enter the existing tag. The workflow resolves its commit and runs the existing
    PHP/Laravel/OS/dependency matrix against that exact commit.
 5. After all checks succeed, the workflow creates GitHub release notes for the
    verified tag and updates `CHANGELOG.md` on the default branch.
 
-The tag must belong to the default branch history. Only stable `vMAJOR.MINOR.PATCH`
-tags are accepted. The workflow rejects a tag whose object changes during checks;
+The tag must belong to the default branch history. Only stable `MAJOR.MINOR.PATCH`
+tags without a `v` prefix are accepted. The workflow rejects a tag whose object changes during checks;
 restrict tag mutation through repository rules as well. A published stable release
 for the same tag is reused, which lets a rerun retry a failed changelog update
 without creating another release. The changelog updater additionally skips a tag
