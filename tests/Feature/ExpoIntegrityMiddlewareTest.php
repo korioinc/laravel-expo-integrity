@@ -176,20 +176,20 @@ test('file-backed proof authorizes once across separate cache instances', functi
     }
 });
 
-test('string keys authorize only an unchanged request and cannot be replayed', function (string $secret, string $signature): void {
+test('INTEGRITY_KEY string values authorize only an unchanged request and cannot be replayed', function (string $key, string $signature): void {
     $repository = Env::getRepository();
-    $originalSecret = $repository->get('INTEGRITY_SECRET');
-    $repository->clear('INTEGRITY_SECRET');
-    $repository->set('INTEGRITY_SECRET', $secret);
+    $originalKey = $repository->get('INTEGRITY_KEY');
+    $repository->clear('INTEGRITY_KEY');
+    $repository->set('INTEGRITY_KEY', $key);
 
     try {
         $configuration = require __DIR__.'/../../config/laravel-expo-integrity.php';
         config()->set('laravel-expo-integrity.secret', $configuration['secret']);
     } finally {
-        $repository->clear('INTEGRITY_SECRET');
+        $repository->clear('INTEGRITY_KEY');
 
-        if ($originalSecret !== null) {
-            $repository->set('INTEGRITY_SECRET', $originalSecret);
+        if ($originalKey !== null) {
+            $repository->set('INTEGRITY_KEY', $originalKey);
         }
     }
     $directory = sys_get_temp_dir().DIRECTORY_SEPARATOR.'expo-integrity-string-'.bin2hex(random_bytes(16));

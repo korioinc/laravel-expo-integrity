@@ -1,5 +1,19 @@
 # Release Notes
 
+## 2.0.0 - 2026-11-06
+
+### Breaking Changes
+
+- Read the shared signing key from `INTEGRITY_KEY` instead of `INTEGRITY_SECRET`.
+- Rename the Expo environment variable in setup examples to `EXPO_PUBLIC_INTEGRITY_KEY`.
+
+### Upgrade
+
+- Rename the backend environment variable to `INTEGRITY_KEY`, keeping its value unchanged.
+- Update any published `config/laravel-expo-integrity.php` to read `INTEGRITY_KEY`, then rebuild Laravel's configuration cache.
+- Update the Expo environment variable and its reference in `expo-kit.config.ts` to `EXPO_PUBLIC_INTEGRITY_KEY`.
+- The PHP `laravel-expo-integrity.secret` and Expo `integrity.secret` configuration fields and signature format remain unchanged.
+
 ## 1.0.1 - 2026-10-24
 
 ### Changed
