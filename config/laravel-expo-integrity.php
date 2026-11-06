@@ -10,7 +10,7 @@ return [
      * app-version remains signed metadata, not a release allowlist or user identity.
      * Keys embedded in an app are extractable; never use the public demo key.
      */
-    'secret' => Env::getRepository()->get('INTEGRITY_SECRET'),
+    'secret' => Env::getRepository()->get('INTEGRITY_KEY'),
 
     /*
      * File works for one server with a persistent directory shared by its workers.

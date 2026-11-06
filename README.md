@@ -41,7 +41,7 @@ The published file is `config/laravel-expo-integrity.php`. Read runtime values
 with `config('laravel-expo-integrity.secret')`, not `config('integrity.secret')`.
 
 ```dotenv
-INTEGRITY_SECRET="<your-shared-string>"
+INTEGRITY_KEY="<your-shared-string>"
 INTEGRITY_CACHE_STORE=file
 ```
 
@@ -51,7 +51,7 @@ All replicas must use the same store/namespace. Redis requires a configured clie
 Laravel `FileStore` or `RedisStore`, including named stores backed by those drivers.
 Array/null/failover stores are rejected rather than weakening replay protection.
 
-Use the same nonempty string as `EXPO_PUBLIC_INTEGRITY_SECRET` in your app.
+Use the same nonempty string as `EXPO_PUBLIC_INTEGRITY_KEY` in your app.
 There is no hex, character-set or length restriction; UUIDs work. The exact UTF-8
 bytes are used without decoding, trimming or normalization. The key is read as
 raw environment text, so values such as `true`, `false` and `null` remain strings.
@@ -59,6 +59,9 @@ Quote whitespace or
 special characters in environment files. Prefer an unpredictable random value;
 short or guessable keys weaken protection. Do not commit real keys. Expo public
 environment values are bundled into the app and are not confidential secrets.
+
+When upgrading, update the environment variable names in both projects and change
+any published backend configuration to read `INTEGRITY_KEY`.
 
 This replaces the previous hex-decoded key format. Even a hex-looking key now
 uses its literal text bytes, so signatures change. Update client and backend
@@ -89,7 +92,7 @@ webhooks are unaffected unless you explicitly attach this middleware.
 ## Expo client
 
 Core owns version lookup, nonces and the signing-key cache. Set
-`integrity.secret: process.env.EXPO_PUBLIC_INTEGRITY_SECRET` in `expo-kit.config.ts`
+`integrity.secret: process.env.EXPO_PUBLIC_INTEGRITY_KEY` in `expo-kit.config.ts`
 and pass it through the existing `withExpoKitConf` setup. The key must match this
 backend. Request callers need only `createIntegrityHeaders(payload)`; `fetch`
 remains unwrapped:
